@@ -2,7 +2,7 @@ execution:
 - concurrency: 2
   throughput: 10
   ramp-up: 3ms
-  hold-for: 10m
+  hold-for: 5m
   steps: 5
   scenario: blazemeter-recording
 
@@ -12,7 +12,7 @@ scenarios:
     retrieve-resources: false
     store-cache: false
     store-cookie: false
-    default-address: http://blazedemo.com
+    default-address: https://blazedemo.com
     headers:
       User-Agent: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36'
       Accept-Language: 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4'
@@ -54,3 +54,20 @@ scenarios:
         zipCode: test
     - /index.php
     - /vacation.html
+  reporting:
+  - module: final-stats
+    filename: my_report.html
+    data-source: aggregated
+    report-template: passfail.jmx.j2
+    delete-reports: true
+  - module: junit-xml
+    filename: results.xml
+    data-source: sample-labels
+  - module: console
+  - module: blazemeter
+    report-name: my_report
+    test: my_test
+    project: my_project
+    token: my_token
+    deployment: my_deployment
+    data-source: sample-labels
